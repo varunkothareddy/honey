@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attmia Natural Honey - The Purest Gold</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Georgia:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            background-color: #fcf8e8;
+            color: #333;
+            overflow-x: hidden;
+        }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+
+        /* ==================== NAVBAR (PERFECT) ==================== */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: 70px;
+            background: #4b3832;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+            color: #f8d674;
+            font-size: 1.8rem;
+            white-space: nowrap;
+        }
+        #menu-btn {
+            background: none;
+            border: none;
+            color: #f8d674;
+            font-size: 1.9rem;
+            cursor: pointer;
+        }
+        .desktop-menu { display: none; }
+        .desktop-menu ul {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+        }
+        .desktop-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        .desktop-menu a:hover { color: #f8d674; }
+
+        /* Mobile Sidebar */
+        #mobile-sidebar {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px;
+            height: 100vh;
+            background: #4b3832;
+            transform: translateX(100%);
+            transition: transform 0.35s ease;
+            z-index: 1001;
+            padding: 25px;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+        }
+        #mobile-sidebar.open { transform: translateX(0); }
+        #mobile-sidebar a {
+            display: block;
+            padding: 18px 0;
+            color: #f8d674;
+            font-size: 1.5rem;
+            text-decoration: none;
+            text-align: center;
+            border-bottom: 1px solid #6b5548;
+        }
+        #mobile-sidebar a:last-child { border-bottom: none; }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            header { padding: 0 40px; justify-content: flex-start; }
+            .logo { margin-right: auto; padding-left: 40px; font-size: 2rem; }
+            .desktop-menu { display: block; }
+            #menu-btn { display: none; }
+        }
+        @media (max-width: 767px) {
+            .logo { position: absolute; left: 50%; transform: translateX(-50%); font-size: 1.55rem; }
+        }
+
+        /* Hero Full Screen */
+        main {
+            height: 100vh;
+            background: url('https://i.pinimg.com/1200x/af/81/17/af8117cb79eaa84afcd158cfbf35ac2b.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            color: white;
+        }
+        main::before {
+            content: ''; position: absolute; inset: 0;
+            background: rgba(0,0,0,0.5);
+        }
+        .hero-content { position: relative; z-index: 2; }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.8rem;
+            color: #f8d674;
+            margin-bottom: 15px;
+        }
+        .hero-content p { font-size: 2rem; }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px; height: 60px;
+            bottom: 30px; right: 30px;
+            background: #25d366;
+            color: white;
+            border-radius: 50%;
+            font-size: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(37,211,102,0.4);
+            z-index: 999;
+            border: 4px solid white;
+            animation: pulse 2s infinite;
+            transition: all 0.3s;
+        }
+        .whatsapp-float:hover { transform: scale(1.15); }
+        @keyframes pulse {
+            0%,100% { box-shadow: 0 8px 25px rgba(37,211,102,0.4); }
+            50% { box-shadow: 0 12px 35px rgba(37,211,102,0.6); }
+        }
+        @media (max-width: 480px) {
+            .whatsapp-float { width: 55px; height: 55px; font-size: 32px; bottom: 20px; right: 20px; }
+        }
+
+        /* Your Original Sections Styling (unchanged) */
+        .section-heading { text-align: center; color: #b8860b; margin: 60px 0 40px; font-size: 2.5em; text-transform: uppercase; }
+        .small-heading { font-size: 2em; }
+        .why-trust-us, .maintenance-section { padding: 60px 0; }
+        .why-trust-us { background: #e0c88920; }
+        .maintenance-section { background: white; }
+        .trust-grid, .maintenance-grid { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
+        .trust-item, .maintenance-item { flex: 1; min-width: 280px; background: white; padding: 30px; border-radius: 10px; text-align: center; border: 1px solid #e0c889; }
+        .trust-item i, .maintenance-item i { font-size: 3.5em; color: #e99600; margin-bottom: 15px; }
+        .product-focus-section { padding: 80px 0; background: #fcf8e8; }
+        .single-product-layout { display: flex; gap: 50px; max-width: 1000px; margin: 0 auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .product-purchase-column, .product-description-column { flex: 1; }
+        .product-image-container img { width: 100%; border-radius: 10px; }
+        .price-large { font-size: 2.8em; color: #e99600; font-weight: bold; }
+        .quantity-control { display: flex; align-items: center; justify-content: center; margin: 20px 0; border: 1px solid #ccc; border-radius: 8px; overflow: hidden; width: fit-content; margin-left: auto; margin-right: auto; }
+        .qty-btn { background: #4b3832; color: white; border: none; padding: 12px 20px; font-size: 1.4em; cursor: pointer; }
+        .qty-btn:hover { background: #b8860b; }
+        #quantity-display { padding: 12px 25px; font-weight: bold; font-size: 1.3em; }
+        .buy-now-btn-single { display: block; width: 90%; margin: 20px auto; background: #e99600; color: white; padding: 18px; text-align: center; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 1.3em; }
+        .buy-now-btn-single:hover { background: #cc8400; }
+
+        footer { background: #4b3832; color: white; padding: 60px 0 20px; margin-top: 100px; }
+        .footer-grid { display: flex; flex-wrap: wrap; gap: 50px; justify-content: center; }
+        .footer-links, .footer-contact { min-width: 400px; }
+        .footer-links h4, .footer-contact h4 { color: #f8d674; margin-bottom: 20px; font-size: 1.4em; }
+        .footer-links a { color: #ccc; text-decoration: none; display: block; margin: 10px 0; }
+        .footer-links a:hover { color: rgb(248, 251, 99); }
+        .social-icons i { font-size: 1.6em; margin: 40px 50px; cursor: pointer; color: #f8d674; }
+        .footer-copyright { text-align: center; padding:20px; background: #3b2b25; margin-top: 5px; }
+
+        @media (max-width: 900px) {
+            .single-product-layout { flex-direction: column; text-align: center; }
+            .hero-content h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <button id="menu-btn"><i class="fas fa-bars"></i></button>
+        <div class="logo">Attmia Natural Honey</div>
+        <nav class="desktop-menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="orders.html">Your Orders</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MOBILE SIDEBAR -->
+    <div id="mobile-sidebar">
+        <div style="text-align:right; margin-bottom:40px;">
+            <button style="background:none; border:none; color:#f8d674; font-size:3rem; cursor:pointer;">×</button>
+        </div>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="orders.html">Your Orders</a>
+        <a href="gallery.html">Gallery</a>
+    </div>
+
+    <!-- HERO -->
+    <main>
+        <div class="hero-content">
+            <h1>Attmia Natural Honey</h1>
+            <p>The Only Honey You Need. Pure, 1Kg Bottle.</p>
+        </div>
+    </main>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/919345656553?text=Hello! I want to order Attmia Natural Honey" 
+       class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Content -->
+    <section class="why-trust-us">
+        <div class="container">
+            <h2 class="section-heading small-heading">Why Choose Attmia?</h2>
+            <div class="trust-grid">
+                <div class="trust-item"><i class="fas fa-hand-holding-water"></i><h4>Source Purity</h4><p>Honey collected directly from our untouched, remote farms.</p></div>
+                <div class="trust-item"><i class="fas fa-flask"></i><h4>Zero Chemical Promise</h4><p>Absolutely no synthetic additives, preservatives, or pesticides.</p></div>
+                <div class="trust-item"><i class="fas fa-leaf"></i><h4>Ethically Harvested</h4><p>Sustainable beekeeping practices that prioritize bee health.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="maintenance-section">
+        <div class="container">
+            <h2 class="section-heading small-heading">Packaging and Maintenance</h2>
+            <div class="maintenance-grid">
+                <div class="maintenance-item"><i class="fas fa-box-open"></i><h4>Secure Boxing</h4><p>Each glass jar is secured in custom-fitted, eco-friendly boxes.</p></div>
+                <div class="maintenance-item"><i class="fas fa-temperature-low"></i><h4>Optimal Storage</h4><p>We ensure precise temperature control to preserve raw quality.</p></div>
+                <div class="maintenance-item"><i class="fas fa-truck-fast"></i><h4>Fast & Safe Shipping</h4><p>Reliable carriers guarantee your honey arrives intact.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-focus-section">
+        <div class="container">
+            <h2 class="section-heading">Signature Multi Flower Honey</h2>
+            <div class="single-product-layout">
+                <div class="product-purchase-column">
+                    <div class="product-image-container">
+                        <img src="https://i.pinimg.com/736x/9d/23/d8/9d23d846f64fe354774c800a0f1a585b.jpg" alt="Attmia Honey">
+                    </div>
+                    <p class="price-large">₹<span id="price-value">460.00</span></p>
+                    <div class="quantity-control">
+                        <button class="qty-btn" onclick="updateQuantity(-1)">-</button>
+                        <span id="quantity-display">1</span>
+                        <button class="qty-btn" onclick="updateQuantity(1)">+</button>
+                    </div>
+                    <a href="shop.html" class="buy-now-btn-single">BUY NOW</a>
+                </div>
+                <div class="product-description-column">
+                    <h3>Pure, Unadulterated Multi Floral Honey (1Kg)</h3>
+                    <p class="product-description">Harvested ethically from untouched wildflower fields — guaranteed pure and rich in natural goodness.</p>
+                    <div class="details-list">
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li>1Kg Premium Glass Bottle</li>
+                            <li>Naturally Crystallized Texture</li>
+                            <li>Rich in Antioxidants & Minerals</li>
+                            <li>Perfect for Tea, Toast & Baking</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop Now</a>
+                <a href="ship.html">Shipping & Returns</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>Address: 5-23, PR PURAM village, Chittoor Dist, A.P 517591</p>
+                <p>+91 9345656553</p>
+                <p>aatmiahoney@gmail.com</p>
+                <div class="social-icons">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-twitter"></i>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2025 Attmia Natural Honey | Pure Honey for a Healthier Life</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu
+        document.getElementById('menu-btn').onclick = () => {
+            document.getElementById('mobile-sidebar').classList.add('open');
+        };
+        document.querySelector('#mobile-sidebar button').onclick = () => {
+            document.getElementById('mobile-sidebar').classList.remove('open');
+        };
+
+        // Price Calculator
+        const BASE_PRICE = 460.00;
+        const MAX_QTY = 5;
+        function updateQuantity(change) {
+            let qty = parseInt(document.getElementById('quantity-display').innerText);
+            qty = Math.max(1, Math.min(MAX_QTY, qty + change));
+            document.getElementById('quantity-display').innerText = qty;
+            document.getElementById('price-value').innerText = (qty * BASE_PRICE).toFixed(2);
+            if (qty === MAX_QTY) alert("Maximum 5 units per order");
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('price-value').innerText = "460.00";
+        });
+    </script>
+</body>
+</html>

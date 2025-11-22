@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Attmia Natural Honey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs-cdn.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
+    <script src="https://cdnjs-cdn.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #fcf8e8; color: #4a3728; padding-top: 80px; }
+
+        /* SAME PERFECT NAVBAR */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 70px;
+            background: #4b3832; display: flex; align-items: center;
+            justify-content: space-between; padding: 0 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif; font-weight: bold;
+            color: #f8d674; font-size: 1.8rem; white-space: nowrap;
+        }
+        #menu-btn { background:none; border:none; color:#f8d674; font-size:1.9rem; cursor:pointer; }
+
+        .desktop-menu { display: none; }
+        .desktop-menu ul { list-style:none; display:flex; gap:35px; }
+        .desktop-menu a { color:white; text-decoration:none; font-size:1.1rem; }
+        .desktop-menu a:hover { color:#f8d674; }
+
+        #mobile-sidebar {
+            position:fixed; top:0; right:0; width:280px; height:100vh;
+            background:#4b3832; transform:translateX(100%);
+            transition:transform 0.35s ease; z-index:1001;
+            padding:25px; box-shadow:-10px 0 30px rgba(0,0,0,0.5);
+        }
+        #mobile-sidebar.open { transform:translateX(0); }
+        #mobile-sidebar a {
+            display:block; padding:18px 0; color:#f8d674; font-size:1.5rem;
+            text-decoration:none; text-align:center;
+            border-bottom:1px solid #6b5548;
+        }
+        #mobile-sidebar a:last-child { border-bottom:none; }
+
+        @media (min-width: 768px) {
+            header { padding:0 40px; justify-content:flex-start; }
+            .logo { margin-right:auto; padding-left:40px; font-size:2rem; }
+            .desktop-menu { display:block; }
+            #menu-btn { display:none; }
+        }
+        @media (max-width: 767px) {
+            .logo { position:absolute; left:50%; transform:translateX(-50%); font-size:1.55rem; }
+        }
+
+        /* GALLERY GRID - NOW VERTICAL ON MOBILE */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;           /* 1 column on mobile */
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        @media (min-width: 768px) {
+            .grid { grid-template-columns: repeat(3, 1fr); } /* 3 columns on tablet/desktop */
+        }
+
+        /* Rest of your original styles (untouched) */
+        .choice-box {
+            background: white;
+            border-radius: 2.5rem;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: 4px solid transparent;
+        }
+        .choice-box:hover {
+            transform: translateY(-20px);
+            border-color: #f59e0b;
+            box-shadow: 0 30px 70px rgba(245,158,11,0.25);
+        }
+        .choice-box i { font-size: 4.5rem; color: #d97706; margin-bottom: 1.5rem; }
+        .choice-box h3 { font-size: 2.5rem; font-weight: bold; color: #92400e; margin-bottom: 1rem; }
+        .choice-box p { font-size: 1.3rem; color: #666; }
+
+        .gallery-section {
+            display: none;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        .gallery-section.active { display: block; animation: fadeIn 0.6s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .thumb {
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            aspect-ratio: 1/1;
+            transition: 0.3s;
+        }
+        .thumb:hover { transform: scale(1.05); }
+        .thumb img, .thumb video { width: 100%; height: 100%; object-fit: cover; }
+        .play-overlay {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: 0.3s; border-radius: 1.5rem;
+        }
+        .thumb:hover .play-overlay { opacity: 1; }
+        .play-overlay i { font-size: 3.5rem; color: white; }
+    </style>
+</head>
+<body>
+
+    <!-- SAME NAVBAR (WORKING) -->
+    <header>
+        <button id="menu-btn"><i class="fas fa-bars"></i></button>
+        <div class="logo">Attmia Natural Honey</div>
+        <nav class="desktop-menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="orders.html">Your Orders</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MOBILE SIDEBAR -->
+    <div id="mobile-sidebar">
+        <div style="text-align:right; margin-bottom:40px;">
+            <button style="background:none; border:none; color:#f8d674; font-size:3rem; cursor:pointer;">×</button>
+        </div>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="orders.html">Your Orders</a>
+        <a href="gallery.html">Gallery</a>
+    </div>
+
+    <!-- Title + Quote -->
+    <div class="text-center py-16 px-6">
+        <h1 class="text-5xl md:text-6xl font-bold text-amber-800 mb-6" style="font-family: 'Playfair Display', serif;">
+            Our Honey Gallery
+        </h1>
+        <p class="text-2xl italic text-amber-700 max-w-4xl mx-auto leading-relaxed">
+            “Every jar tells a story of nature, hard work, and pure love.”
+        </p>
+    </div>
+
+    <!-- TWO BIG CLICKABLE BOXES -->
+    <div class="max-w-5xl mx-auto px-6 py-12">
+        <div class="grid md:grid-cols-2 gap-12">
+            <div class="choice-box" onclick="showGallery('images')">
+                <i class="fas fa-images"></i>
+                <h3>View Images</h3>
+                <p>Real photos from forest harvesting, bees, jars & happy customers</p>
+            </div>
+            <div class="choice-box" onclick="showGallery('videos')">
+                <i class="fas fa-video"></i>
+                <h3>Watch Videos</h3>
+                <p>Real videos of honey collection, bees in action & nature</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- IMAGES GALLERY -->
+    <div id="images-gallery" class="gallery-section max-w-6xl mx-auto px-6">
+        <h2 class="text-4xl font-bold text-amber-800 text-center mb-8">Images Gallery</h2>
+        <div class="grid">
+            <a href="images/gallery/1.jpg" data-lightbox="images" class="thumb"><img src="images/gallery/1.jpg" alt=""></a>
+            <a href="images/gallery/2.jpg" data-lightbox="images" class="thumb"><img src="images/gallery/2.jpg" alt=""></a>
+            <a href="images/gallery/3.jpg" data-lightbox="images" class="thumb"><img src="images/gallery/3.jpg" alt=""></a>
+            <a href="images/gallery/aboutpic.jpg" data-lightbox="images" class="thumb"><img src="images/gallery/4.jpg" alt=""></a>
+            <a href="images/gallery/5.jpg" data-lightbox="images" class="thumb"><img src="images/gallery/5.jpg" alt=""></a>
+            <a href="images/gallery/6.jpg" data-lightbox="images" class="thumb"><img src="images/gallery/6.jpg" alt=""></a>
+        </div>
+        <div class="text-center mt-10">
+            <button onclick="showGallery('home')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-10 py-4 rounded-full text-xl">
+                ← Back to Gallery
+            </button>
+        </div>
+    </div>
+
+    <!-- VIDEOS GALLERY -->
+    <div id="videos-gallery" class="gallery-section max-w-6xl mx-auto px-6">
+        <h2 class="text-4xl font-bold text-amber-800 text-center mb-8">Videos Gallery</h2>
+        <div class="grid">
+            <a href="videos/harvest.mp4" data-lightbox="videos" class="thumb relative">
+                <video poster="images/gallery/aboutpic.jpg" muted><source src="videos/harvest.mp4"></video>
+                <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+            </a>
+            <a href="videos/bees.mp4" data-lightbox="videos" class="thumb relative">
+                <video poster="images/gallery/3.jpg" muted><source src="videos/bees.mp4"></video>
+                <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID" data-lightbox="videos" class="thumb relative">
+                <img src="https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg" alt="">
+                <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+            </a>
+        </div>
+        <div class="text-center mt-10">
+            <button onclick="showGallery('home')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-10 py-4 rounded-full text-xl">
+                ← Back to Gallery
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu
+        document.getElementById('menu-btn').onclick = () => {
+            document.getElementById('mobile-sidebar').classList.add('open');
+        };
+        document.querySelector('#mobile-sidebar button').onclick = () => {
+            document.getElementById('mobile-sidebar').classList.remove('open');
+        };
+
+        function showGallery(type) {
+            document.getElementById('images-gallery').classList.remove('active');
+            document.getElementById('videos-gallery').classList.remove('active');
+            document.querySelector('.max-w-5xl').style.display = 'none';
+
+            if (type === 'images') {
+                document.getElementById('images-gallery').classList.add('active');
+            } else if (type === 'videos') {
+                document.getElementById('videos-gallery').classList.add('active');
+            } else if (type === 'home') {
+                document.querySelector('.max-w-5xl').style.display = 'block';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 text-center mt-20">
+        <div class="max-w-5xl mx-auto">
+            <h3 class="text-3xl font-bold mb-3" style="font-family: 'Playfair Display', serif;">Attmia Natural Honey</h3>
+            <p class="text-lg mb-6">Pure • Raw • From Forest to Your Home</p>
+            <div class="flex justify-center space-x-8 text-sm">
+                <a href="index.html" class="hover:text-amber-400">Home</a>
+                <a href="shop.html" class="hover:text-amber-400">Shop</a>
+                <a href="gallery.html" class="hover:text-amber-400">Gallery</a>
+                <a href="about.html" class="hover:text-amber-400">About</a>
+                <a href="contact.html" class="hover:text-amber-400">Contact</a>
+            </div>
+            <p class="text-sm text-gray-400 mt-6">© 2025 Attmia Honey • Made with Love</p>
+        </div>
+    </footer>
+</body>
+</html>
