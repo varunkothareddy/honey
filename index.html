@@ -167,16 +167,79 @@
         .buy-now-btn-single { display: block; width: 90%; margin: 20px auto; background: #e99600; color: white; padding: 18px; text-align: center; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 1.3em; }
         .buy-now-btn-single:hover { background: #cc8400; }
 
-        footer { background: #4b3832; color: white; padding: 60px 0 20px; margin-top: 100px; }
-        .footer-grid { display: flex; flex-wrap: wrap; gap: 50px; justify-content: center; }
-        .footer-links, .footer-contact { min-width: 400px; }
-        .footer-links h4, .footer-contact h4 { color: #f8d674; margin-bottom: 20px; font-size: 1em; }
-        .footer-links a { color: white; text-decoration: none; display: block; margin: 10px 0; }
-         .footer-contact a { color: white; text-decoration: none; display: block; margin: 10px 0; }
-        .footer-links a:hover { color: rgb(248, 251, 99); }
-        .social-icons i { font-size: 1.6em; margin: 40px 50px; cursor: pointer; color: #f8d674; }
-        
-        .footer-copyright { text-align: center; padding:20px; background: #3b2b25; margin-top: 5px; }
+      footer {
+    background: #4b3832;
+    color: white;
+    padding: 60px 20px 20px;   /* reduced side padding on small screens */
+    margin-top: 100px;
+}
+
+/* Main change here */
+.footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;           /* extra safe side padding */
+}
+
+/* Remove fixed min-width → make it flexible */
+.footer-links, .footer-contact {
+    flex: 1;                    /* take available space */
+    min-width: 280px;           /* smaller min-width for mobile */
+    max-width: 500px;
+}
+
+/* Rest remains same */
+.footer-links h4, .footer-contact h4 {
+    color: #f8d674;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+}
+
+.footer-links a, .footer-contact a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin: 12px 0;
+    word-wrap: break-word;     /* prevents long text overflow */
+}
+
+.footer-links a:hover {
+    color: rgb(248, 251, 99);
+}
+
+.social-icons i {
+    font-size: 1.8em;
+    margin: 0 15px;
+    cursor: pointer;
+    color: #f8d674;
+}
+
+.footer-copyright {
+    text-align: center;
+    padding: 20px;
+    background: #3b2b25;
+    margin-top: 30px;
+    font-size: 0.9em;
+}
+
+/* Extra responsive safety for very small phones */
+@media (max-width: 480px) {
+    .footer-grid {
+        gap: 30px;
+        padding: 0 10px;
+    }
+    .footer-links, .footer-contact {
+        min-width: 100%;        /* full width on tiny screens */
+    }
+    .social-icons i {
+        margin: 0 10px;
+        font-size: 1.6em;
+    }
+}
 
         @media (max-width: 900px) {
             .single-product-layout { flex-direction: column; text-align: center; }
@@ -355,6 +418,7 @@
 </body>
 
 </html>
+
 
 
 
