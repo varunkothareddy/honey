@@ -1,4 +1,4 @@
-69<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -206,7 +206,8 @@
 
         const PLACE_ORDER_BTN = document.getElementById('place-order-btn');
         const CHECKOUT_MODAL = document.getElementById('checkout-modal');
-        const SHIPPING_CHARGE = 70;
+        const SHIPPING_CHARGE = 100;
+        const COD = 50;
         const MAX_QTY = 5;
 
         const SERVICE_ID = 'service_c74y3if';
@@ -236,7 +237,7 @@
                 summary += `${title} × ${qty}; `;
             });
 
-            const total = subtotal + SHIPPING_CHARGE;
+            const total = subtotal + SHIPPING_CHARGE + COD;
             const fmtSub = subtotal.toFixed(2);
             const fmtTotal = total.toFixed(2);
 
@@ -281,6 +282,7 @@
                 address: form.shipping_address.value.trim(),
                 subtotal: subtotal,
                 shipping: SHIPPING_CHARGE,
+                cod: COD,
                 amount: total,
                 items: summary,
                 date: new Date().toLocaleString('en-IN'),
@@ -300,6 +302,7 @@
                 shipping_address: orderDetails.address,
                 subtotal: `₹${subtotal.toFixed(2)}`,
                 shipping_charge: `₹${SHIPPING_CHARGE}.00`,
+                cash_on_delivery: `${COD}.00`,
                 total_amount: `₹${total.toFixed(2)}`,
                 order_summary: summary,
                 time: new Date().toLocaleString('en-IN')
@@ -319,5 +322,6 @@
 </body>
 
 </html>
+
 
 
